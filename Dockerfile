@@ -1,6 +1,10 @@
 FROM      ubuntu:15.04
 
-RUN       mkdir /downloads                                                                                               && \
+RUN       apt-get update                                                                                                 && \
+echo "Install cURL"                                                                                                      && \
+          apt-get install curl -y                                                                                        && \
+echo "Prepare downloads"                                                                                                 && \
+          mkdir /downloads                                                                                               && \
           cd /downloads                                                                                                  && \
 echo "download VirtualBox"                                                                                               && \
           curl -L http://download.virtualbox.org/virtualbox/5.0.2/virtualbox-5.0_5.0.2-102096~Ubuntu~trusty_amd64.deb -O && \
@@ -9,7 +13,6 @@ echo "download Vagrant"                                                         
           curl -L https://dl.bintray.com/mitchellh/vagrant/vagrant_1.7.4_x86_64.deb -O                                   && \
           mv vagrant_1.7.4_x86_64.deb $vbox_pathfi /downloads/vagrant.deb                                                && \
 echo "Install VirtualBox dependencies & VirtualBox"                                                                      && \
-          apt-get update                                            && \
           apt-get install dkms -y                                   && \
           echo y | apt-get install linux-image-3.19.0-26-generic -y && \
           apt-get install -y libssl1.0.0                            && \
